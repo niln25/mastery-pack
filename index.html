@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastery Pack — HD Notes & Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #fbf9f5;
+    --paper:      #ffffff;
+    --ink:        #1a1814;
+    --muted:      #7a7569;
+    --subtle:     #b8b3a7;
+    --line:       #e8e3d8;
+    --accent:     #3d5a4a;
+    --accent-soft:#ebf0ec;
+    --serif:      'Fraunces', Georgia, serif;
+    --sans:       'Inter', -apple-system, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── HEADER ── */
+  header { padding-top: 56px; padding-bottom: 40px; }
+
+  .wordmark {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .wordmark span {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* ── MAIN ── */
+  main { flex: 1; padding-bottom: 64px; }
+
+  .intro { margin-bottom: 44px; }
+
+  .intro h1 {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .intro h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .intro p {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.65;
+  }
+
+  /* ── CARDS ── */
+  .subjects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .subject {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subject.coming-soon {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+  }
+
+  .coming-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 2px 7px;
+    margin-bottom: 14px;
+    align-self: flex-start;
+  }
+
+  .subject-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 12px;
+  }
+
+  .subject-code {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .subject-mark {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    text-align: right;
+    letter-spacing: 0.01em;
+  }
+
+  .subject h2 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 18px;
+    line-height: 1.25;
+  }
+
+  .pack-list {
+    list-style: none;
+    margin-bottom: 26px;
+    flex: 1;
+  }
+
+  .pack-list li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.85;
+  }
+
+  .pack-list li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .btn-pack {
+    display: block;
+    padding: 11px 14px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    background: var(--ink);
+    color: var(--bg);
+    transition: background 0.15s;
+  }
+
+  .btn-pack:hover { background: var(--accent); }
+
+  .btn-soon {
+    display: block;
+    padding: 11px 14px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 5px;
+    background: var(--line);
+    color: var(--muted);
+    border: 1px solid var(--line);
+    cursor: default;
+  }
+
+  /* ── NOTIFY ── */
+  .notify {
+    background: var(--accent-soft);
+    border-radius: 6px;
+    padding: 28px 32px;
+    text-align: center;
+  }
+
+  .notify h3 {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .notify p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .notify-form {
+    display: flex;
+    gap: 8px;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .notify-input {
+    flex: 1;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 13px;
+    padding: 9px 14px;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .notify-input::placeholder { color: var(--subtle); }
+  .notify-input:focus { border-color: var(--accent); }
+
+  .notify-submit {
+    padding: 9px 18px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+
+  .notify-submit:hover { background: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 24px 0 40px;
+    border-top: 1px solid var(--line);
+    margin-top: 16px;
+  }
+
+  .footer-inner {
+    font-size: 12px;
+    color: var(--subtle);
+    text-align: center;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .container { padding: 0 20px; }
+    header { padding-top: 40px; padding-bottom: 28px; }
+    .subjects { grid-template-columns: 1fr; }
+    .intro h1 { font-size: 25px; }
+    .notify { padding: 24px 20px; }
+    .notify-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="wordmark">Mastery <span>Pack</span></div>
+  </header>
+
+  <main>
+
+    <div class="intro">
+      <h1>Built across the semester.<br><em>Refined after the exam.</em></h1>
+      <p>Full notes, practice questions, and mastery tools — packaged together. One subject per file, 2026 content.</p>
+    </div>
+
+    <div class="subjects">
+
+      <article class="subject">
+        <div class="subject-head">
+          <span class="subject-code">BABS1201</span>
+          <span class="subject-mark">94% HD · 2026</span>
+        </div>
+        <h2>Molecules, Cells &amp; Genes</h2>
+        <ul class="pack-list">
+          <li>57+ pages of notes, iPad hand-drawn</li>
+          <li>200+ original MCQs, worked solutions</li>
+          <li>Online question bank — access included</li>
+          <li>10× weekly cheat sheets</li>
+          <li>Anki flashcard deck</li>
+        </ul>
+        <a href="https://studentvip.com.au/notes/55050/babs1201-babs1201-notes-94-hd-every-detail-no" class="btn-pack">Get Mastery Pack →</a>
+      </article>
+
+      <article class="subject coming-soon">
+        <span class="coming-badge">Coming soon</span>
+        <div class="subject-head">
+          <span class="subject-code">CHEM1011</span>
+          <span class="subject-mark">2026</span>
+        </div>
+        <h2>Chemistry A</h2>
+        <ul class="pack-list">
+          <li>Complete notes, iPad hand-drawn</li>
+          <li>Threshold question bank</li>
+          <li>Mastery-style practice questions</li>
+          <li>10× weekly cheat sheets</li>
+          <li>Anki flashcard deck</li>
+        </ul>
+        <div class="btn-soon">Coming soon</div>
+      </article>
+
+    </div>
+
+    <div class="notify">
+      <h3>New subject each semester</h3>
+      <p>I'll email you when notes for a new subject go live. That's it.</p>
+      <form class="notify-form" onsubmit="event.preventDefault();">
+        <input class="notify-input" type="email" placeholder="your@email.com" required>
+        <button type="submit" class="notify-submit">Notify me</button>
+      </form>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">Mastery Pack · 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
